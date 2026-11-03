@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="ko"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;영화 티어리스트&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>* { box-sizing: border-box; margin: 0; padding: 0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>body { font-family: "맑은 고딕", sans-serif; background: #1e1e24; color: #eee; padding: 12px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>h1 { text-align: center; margin-bottom: 12px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.티어 { display: flex; margin-bottom: 8px; border-radius: 8px; overflow: hidden; background: #2a2a33; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.라벨 { width: 55px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.3rem; color: #222; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.t1 .라벨 { background: #ff7f7f; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.t2 .라벨 { background: #ffbf7f; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.t3 .라벨 { background: #ffff7f; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.t4 .라벨 { background: #7fff7f; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.t5 .라벨 { background: #7fbfff; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.목록 { flex: 1; display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; min-height: 90px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.목록.over { background: rgba(90,127,255,0.2); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.카드 { width: 70px; cursor: grab; text-align: center; position: relative; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.카드 img { width: 70px; height: 100px; object-fit: cover; border-radius: 4px; background: #555; display: block; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.제목 { font-size: 0.7rem; margin-top: 2px; word-break: keep-all; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.별점 { font-size: 0.65rem; color: #ffd24d; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.지우기 { position: absolute; top: -6px; right: -6px; background: #c0392b; color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 0.7rem; cursor: pointer; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>button.기본 { padding: 8px 14px; background: #5a7fff; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin: 12px 0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>#모달배경 { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; padding: 12px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>#모달 { background: #2a2a33; padding: 20px; border-radius: 12px; width: 100%; max-width: 340px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>#모달 label { display: block; font-size: 0.8rem; margin: 8px 0 2px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>#모달 input, #모달 select { width: 100%; padding: 6px; border-radius: 6px; border: 1px solid #555; background: #1e1e24; color: #eee; font-size: 0.9rem; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.버튼줄 { display: flex; gap: 8px; margin-top: 16px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.버튼줄 button { flex: 1; padding: 8px; border: none; border-radius: 8px; cursor: pointer; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.저장 { background: #5a7fff; color: #fff; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.취소 { background: #444; color: #eee; }</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;h1&gt;🎬 영화 티어리스트&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="티어영역"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;button class="기본" onclick="추가모달()"&gt;+ 영화 추가&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="모달배경"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="모달"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;h2&gt;영화 추가&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;label&gt;포스터 URL&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;input id="포스터" placeholder="https://..."&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;label&gt;제목&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;input id="제목"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;label&gt;별점&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;select id="별점"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="5"&gt;★★★★★&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="4"&gt;★★★★☆&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="3"&gt;★★★☆☆&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="2"&gt;★★☆☆☆&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="1"&gt;★☆☆☆☆&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;label&gt;티어&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;select id="티어선택"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="1"&gt;1티어&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="2"&gt;2티어&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="3"&gt;3티어&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="4"&gt;4티어&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;option value="5"&gt;5티어&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="버튼줄"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="저장" onclick="저장()"&gt;저장&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="취소" onclick="닫기()"&gt;취소&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let 데이터 = { "1":[], "2":[], "3":[], "4":[], "5":[] };</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let 드래그중 = null;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 로컬저장() { localStorage.setItem("티어리스트", JSON.stringify(데이터)); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 로컬불러오기() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const s = localStorage.getItem("티어리스트");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (s) { try { 데이터 = JSON.parse(s); } catch(e) {} }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 그리기() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const 영역 = document.getElementById("티어영역");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>영역.innerHTML = "";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>["1","2","3","4","5"].forEach(t =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const 행 = document.createElement("div");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>행.className = "티어 t" + t;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>행.innerHTML = `&lt;div class="라벨"&gt;${t}&lt;/div&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const 목록 = document.createElement("div");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>목록.className = "목록";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>목록.ondragover = e =&gt; { e.preventDefault(); 목록.classList.add("over"); };</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>목록.ondragleave = () =&gt; 목록.classList.remove("over");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>목록.ondrop = e =&gt; { e.preventDefault(); 목록.classList.remove("over"); 드롭(t); };</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>데이터[t].forEach((영화, i) =&gt; 목록.appendChild(카드만들기(영화, t, i)));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>행.appendChild(목록);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>영역.appendChild(행);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 카드만들기(영화, 티어, 인덱스) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const 카드 = document.createElement("div");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>카드.className = "카드";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>카드.draggable = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const 별 = "★".repeat(영화.별점) + "☆".repeat(5 - 영화.별점);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>카드.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="지우기"&gt;✕&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;img src="${영화.포스터 || ''}" onerror="this.removeAttribute('src')"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="제목"&gt;${영화.제목 || '(제목없음)'}&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="별점"&gt;${별}&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>카드.querySelector(".지우기").onclick = () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (confirm("삭제할까요?")) { 데이터[티어].splice(인덱스, 1); 로컬저장(); 그리기(); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>카드.ondragstart = () =&gt; 드래그중 = { 티어, 인덱스 };</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return 카드;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 드롭(목표티어) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (!드래그중) return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const 영화 = 데이터[드래그중.티어].splice(드래그중.인덱스, 1)[0];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>데이터[목표티어].push(영화);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>드래그중 = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>로컬저장();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>그리기();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 추가모달() { document.getElementById("모달배경").style.display = "flex"; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 닫기() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById("모달배경").style.display = "none";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById("포스터").value = "";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById("제목").value = "";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function 저장() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const 영화 = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>포스터: document.getElementById("포스터").value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>제목: document.getElementById("제목").value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>별점: Number(document.getElementById("별점").value)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const t = document.getElementById("티어선택").value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>데이터[t].push(영화);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>로컬저장();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>닫기();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>그리기();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>로컬불러오기();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>그리기();</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ko"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;영화 티어리스트&lt;/title&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--bg: #141414; --panel: #222; --text: #eee; --accent: #3b82f6; --danger: #ef4444;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--t1: #ff7f7f; --t2: #ffbf7f; --t3: #ffff7f; --t4: #7fff7f; --t5: #7fbfff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>* { box-sizing: border-box; margin: 0; padding: 0; font-family: '맑은 고딕', sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body { background-color: var(--bg); color: var(--text); padding: 10px; max-width: 1200px; margin: 0 auto; }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* 헤더 및 컨트롤 */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>h1 { font-size: 1.5rem; margin: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>button { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: #444; color: white; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>button:hover { background: #555; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>button.primary { background: var(--accent); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>button.primary:hover { background: #2563eb; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>button.danger { background: var(--danger); }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* 탭 영역 */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tabs { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tab { padding: 8px 16px; background: var(--panel); border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; border: 2px solid transparent; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tab.active { border-color: var(--accent); background: #2a3b5c; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tab-del { color: var(--danger); font-size: 0.8rem; padding: 2px 6px; border-radius: 50%; background: rgba(255,0,0,0.1); }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* 티어 보드 */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.board { display: flex; flex-direction: column; gap: 8px; background: #000; padding: 8px; border-radius: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-row { display: flex; background: var(--panel); border-radius: 6px; overflow: hidden; min-height: 120px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-label { width: 80px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; color: #111; text-shadow: 1px 1px 2px rgba(255,255,255,0.5); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-1 .tier-label { background: var(--t1); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-2 .tier-label { background: var(--t2); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-3 .tier-label { background: var(--t3); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-4 .tier-label { background: var(--t4); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-5 .tier-label { background: var(--t5); }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-list { flex: 1; display: flex; flex-wrap: wrap; gap: 10px; padding: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-list.drag-over { background: rgba(255,255,255,0.1); }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* 영화 카드 */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.movie-card { width: 80px; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.1s; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.movie-card:hover { transform: scale(1.05); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.movie-poster { width: 80px; height: 115px; background: #333; border-radius: 4px; object-fit: cover; border: 1px solid #444; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.movie-title { font-size: 0.75rem; text-align: center; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.movie-rating { font-size: 0.7rem; text-align: center; color: #fbbf24; }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* 모달 (팝업) */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 100; padding: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.modal { background: var(--panel); width: 100%; max-width: 400px; border-radius: 12px; padding: 20px; max-height: 90vh; overflow-y: auto; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.modal h2 { margin-bottom: 15px; font-size: 1.2rem; border-bottom: 1px solid #444; padding-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.form-group { margin-bottom: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.form-group label { display: block; font-size: 0.85rem; margin-bottom: 4px; color: #aaa; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #444; background: #111; color: white; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.modal-btns { display: flex; gap: 10px; margin-top: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.modal-btns button { flex: 1; padding: 10px; }</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>@media (max-width: 600px) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tier-label { width: 60px; font-size: 1.2rem; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.movie-card { width: 65px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.movie-poster { width: 65px; height: 95px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;🎬 영화 티어리스트&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="btn-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="primary" onclick="openModal()"&gt;+ 영화 추가&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="exportJSON()"&gt;내보내기&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="document.getElementById('importFile').click()"&gt;불러오기&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="tabs" id="tabsArea"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 탭이 여기에 그려집니다 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="board" id="boardArea"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 티어가 여기에 그려집니다 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- 영화 추가/수정 모달 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="modal-overlay" id="modalOverlay"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="modal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2 id="modalTitle"&gt;영화 추가&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;티어 (모바일 이동용)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="mTier"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="1"&gt;1티어&lt;/option&gt;&lt;option value="2"&gt;2티어&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="3"&gt;3티어&lt;/option&gt;&lt;option value="4"&gt;4티어&lt;/option&gt;&lt;option value="5"&gt;5티어&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;포스터 이미지 URL&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="mPoster" placeholder="https://..."&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;제목&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="mTitle"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;개봉연도&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="mYear" placeholder="예: 2024"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;별점 (1~5)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="mRating"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="5"&gt;★★★★★ (5)&lt;/option&gt;&lt;option value="4"&gt;★★★★☆ (4)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="3"&gt;★★★☆☆ (3)&lt;/option&gt;&lt;option value="2"&gt;★★☆☆☆ (2)&lt;/option&gt;&lt;option value="1"&gt;★☆☆☆☆ (1)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;감상일&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="date" id="mDate"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;한줄평&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="mReview" rows="2"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;본 사람&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="mWatcher"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="modal-btns"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="primary" onclick="saveMovie()"&gt;저장&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="danger" id="btnDelete" onclick="deleteMovie()" style="display:none;"&gt;삭제&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="closeModal()"&gt;취소&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// 기본 데이터 구조</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let appData = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>users: ["기본 사용자"],</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currentUser: "기본 사용자",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"기본 사용자": { "1": [], "2": [], "3": [], "4": [], "5": [] }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>let editMode = null; // 수정 중인 영화 정보 {tier, index}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let dragItem = null; // 드래그 중인 영화 정보 {tier, index}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// --- 1. 로컬 저장소 관리 ---</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function saveData() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>localStorage.setItem("MovieTierListData", JSON.stringify(appData));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function loadData() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const saved = localStorage.getItem("MovieTierListData");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (saved) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try { appData = JSON.parse(saved); } catch(e) { console.error("데이터 불러오기 실패"); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// --- 2. 화면 그리기 (탭) ---</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function renderTabs() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const area = document.getElementById("tabsArea");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>area.innerHTML = "";</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>appData.users.forEach(user =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const tab = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tab.className = "tab" + (user === appData.currentUser ? " active" : "");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tab.innerHTML = `&lt;span&gt;${user}&lt;/span&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tab.onclick = () =&gt; { appData.currentUser = user; renderBoard(); renderTabs(); };</p>
+<p class="p2"><span class="Apple-converted-space">      </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (appData.users.length &gt; 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const delBtn = document.createElement("span");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>delBtn.className = "tab-del";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>delBtn.innerText = "✕";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>delBtn.onclick = (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>e.stopPropagation();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (confirm(`'${user}' 탭을 삭제하시겠습니까? 기록이 모두 지워집니다.`)) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>appData.users = appData.users.filter(u =&gt; u !== user);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>delete appData.data[user];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (appData.currentUser === user) appData.currentUser = appData.users[0];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveData(); renderTabs(); renderBoard();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tab.appendChild(delBtn);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>area.appendChild(tab);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const addBtn = document.createElement("button");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>addBtn.innerText = "+ 사람 추가";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>addBtn.onclick = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const name = prompt("추가할 사람의 이름을 입력하세요:");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name &amp;&amp; !appData.users.includes(name)) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData.users.push(name);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData.data[name] = { "1": [], "2": [], "3": [], "4": [], "5": [] };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>appData.currentUser = name;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>saveData(); renderTabs(); renderBoard();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else if (appData.users.includes(name)) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert("이미 존재하는 이름입니다.");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>area.appendChild(addBtn);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// --- 3. 화면 그리기 (티어 보드) ---</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function renderBoard() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const area = document.getElementById("boardArea");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>area.innerHTML = "";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const userData = appData.data[appData.currentUser];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>["1", "2", "3", "4", "5"].forEach(tier =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const row = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>row.className = `tier-row tier-${tier}`;</p>
+<p class="p2"><span class="Apple-converted-space">      </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const label = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>label.className = "tier-label";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>label.innerText = tier;</p>
+<p class="p2"><span class="Apple-converted-space">      </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const list = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list.className = "tier-list";</p>
+<p class="p2"><span class="Apple-converted-space">      </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// 드래그 앤 드롭 이벤트 설정</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list.ondragover = (e) =&gt; { e.preventDefault(); list.classList.add("drag-over"); };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list.ondragleave = () =&gt; { list.classList.remove("drag-over"); };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list.ondrop = (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>list.classList.remove("drag-over");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (dragItem &amp;&amp; dragItem.tier !== tier) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const movie = appData.data[appData.currentUser][dragItem.tier].splice(dragItem.index, 1)[0];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>appData.data[appData.currentUser][tier].push(movie);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>saveData(); renderBoard();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// 영화 카드 생성</p>
+<p class="p1"><span class="Apple-converted-space">      </span>userData[tier].forEach((movie, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const card = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.className = "movie-card";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.draggable = true;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.ondragstart = () =&gt; { dragItem = { tier, index }; };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.ondragend = () =&gt; { dragItem = null; };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.onclick = () =&gt; { openModal(tier, index); };</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const stars = "★".repeat(movie.rating) + "☆".repeat(5 - movie.rating);</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>card.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;img src="${movie.poster || ''}" class="movie-poster" onerror="this.src='data:image/svg+xml;utf8,&lt;svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'80\\' height=\\'115\\'&gt;&lt;rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23555\\'/&gt;&lt;text x=\\'50%\\' y=\\'50%\\' fill=\\'white\\' text-anchor=\\'middle\\' dy=\\'0.3em\\'&gt;No Image&lt;/text&gt;&lt;/svg&gt;'"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="movie-title"&gt;${movie.title || '제목 없음'}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="movie-rating"&gt;${stars}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>list.appendChild(card);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>row.appendChild(label);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>row.appendChild(list);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>area.appendChild(row);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// --- 4. 모달 (추가/수정) 관리 ---</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function openModal(tier = null, index = null) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>editMode = tier !== null ? { tier, index } : null;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("modalTitle").innerText = editMode ? "영화 수정" : "영화 추가";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("btnDelete").style.display = editMode ? "block" : "none";</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (editMode) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const movie = appData.data[appData.currentUser][tier][index];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mTier").value = tier;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mPoster").value = movie.poster || "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mTitle").value = movie.title || "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mYear").value = movie.year || "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mRating").value = movie.rating || "5";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mDate").value = movie.date || "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mReview").value = movie.review || "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mWatcher").value = movie.watcher || appData.currentUser;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mTier").value = "1";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mPoster").value = "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mTitle").value = "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mYear").value = "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mRating").value = "5";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mDate").value = new Date().toISOString().split('T')[0];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mReview").value = "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("mWatcher").value = appData.currentUser;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("modalOverlay").style.display = "flex";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function closeModal() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("modalOverlay").style.display = "none";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function saveMovie() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const targetTier = document.getElementById("mTier").value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const movieData = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>poster: document.getElementById("mPoster").value,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>title: document.getElementById("mTitle").value,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>year: document.getElementById("mYear").value,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>rating: Number(document.getElementById("mRating").value),</p>
+<p class="p1"><span class="Apple-converted-space">      </span>date: document.getElementById("mDate").value,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>review: document.getElementById("mReview").value,</p>
+<p class="p1"><span class="Apple-converted-space">      </span>watcher: document.getElementById("mWatcher").value</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (editMode) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>// 기존 위치에서 삭제</p>
+<p class="p1"><span class="Apple-converted-space">      </span>appData.data[appData.currentUser][editMode.tier].splice(editMode.index, 1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// 새 위치(또는 기존 위치)에 추가</p>
+<p class="p1"><span class="Apple-converted-space">    </span>appData.data[appData.currentUser][targetTier].push(movieData);</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>saveData(); renderBoard(); closeModal();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function deleteMovie() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (confirm("이 영화를 삭제하시겠습니까?")) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>appData.data[appData.currentUser][editMode.tier].splice(editMode.index, 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>saveData(); renderBoard(); closeModal();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// --- 5. JSON 내보내기 / 불러오기 ---</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function exportJSON() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dataStr = JSON.stringify(appData, null, 2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const blob = new Blob([dataStr], { type: "application/json" });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const url = URL.createObjectURL(blob);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const a = document.createElement("a");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a.href = url;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a.download = "영화티어리스트_백업.json";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>a.click();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>URL.revokeObjectURL(url);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function importJSON(event) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const file = event.target.files[0];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!file) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const reader = new FileReader();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>reader.onload = (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const importedData = JSON.parse(e.target.result);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (importedData.users &amp;&amp; importedData.data) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>appData = importedData;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>saveData(); renderTabs(); renderBoard();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>alert("데이터를 성공적으로 불러왔습니다!");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>alert("올바른 티어리스트 파일이 아닙니다.");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert("파일을 읽는 중 오류가 발생했습니다.");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>reader.readAsText(file);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>event.target.value = ""; // 초기화</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// --- 초기 실행 ---</p>
+<p class="p1"><span class="Apple-converted-space">  </span>loadData();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderTabs();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderBoard();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
